@@ -1,31 +1,34 @@
 <template>
   <div id="app">
     <Header />
+    <Content />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import Content from "./components/Content.vue";
 
 export default {
   name: "App",
   components: {
-    Header
+    Header,
+    Content
   }
 };
 </script>
 
 <style lang="scss">
 @font-face {
-  font-family: "Mukta Regular";
-  src: url(./assets/fonts/Mukta-Regular.ttf);
+  font-family: "Inter Regular";
+  src: url(./assets/fonts/Inter-Regular.ttf);
 }
 // Font Variables
-$roboto: "Mukta Regular", serif;
+$inter: "Inter Regular", serif;
 
 // Styles
 body {
-  font-family: $roboto;
+  font-family: $inter;
 }
 
 // #app {

@@ -20,7 +20,6 @@
 <script>
 export default {
   name: "Header",
-  components: {},
   data: () => ({
     menu_items: [
       'CATÁLOGO',
@@ -49,9 +48,11 @@ export default {
 .header {
   display: flex;
   width: 100%;
-  height: 100%;
-  box-shadow: 0px 0px 10px 2px #ccc;
+  box-shadow: 0 0 1em #e3e3e3;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background:white;
 }
 
 .logo {
@@ -60,7 +61,7 @@ export default {
 }
 
 .logo_img {
-  width: 4em;
+  width: 3em;
   margin: 1em;
 }
 
@@ -71,12 +72,12 @@ export default {
 }
 
 .menu_button_img {
-  width: 2.5em;
+  width: 2em;
 }
 
 .menu_items {
   display: flex;
-  width: 100vw;
+  width: 100%;
   align-items: center;
   background: white;
 }
@@ -88,7 +89,13 @@ export default {
   text-align: center;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 867px) {
+  .menu_items {
+    height: auto !important;
+  }
+}
+
+@media (max-width: 866px) {
   .header {
     align-items: flex-start;
   }
@@ -100,8 +107,7 @@ export default {
   .menu_items {
     flex-direction: column;
     transition: .5s;
-    margin-top: 4.5em;
-    flex-direction: wrap;
+    margin-top: 4em;
     overflow: hidden;
     height: 0;
   }
