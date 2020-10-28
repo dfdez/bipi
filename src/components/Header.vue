@@ -88,7 +88,7 @@ export default {
 }
 
 @media (max-width: 962px) {
-  .header {
+  #header {
     align-items: flex-start;
   }
   .menu_button {
