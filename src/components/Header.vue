@@ -89,13 +89,13 @@ export default {
   text-align: center;
 }
 
-@media (min-width: 867px) {
+@media (min-width: 963px) {
   .menu_items {
     height: auto !important;
   }
 }
 
-@media (max-width: 866px) {
+@media (max-width: 962px) {
   .header {
     align-items: flex-start;
   }
