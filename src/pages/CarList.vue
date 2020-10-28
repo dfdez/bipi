@@ -1,19 +1,19 @@
 <template>
-  <div id="content">
-    <h1 class="title">Catálogo</h1>
-    <div class="car_container">
-      <Car v-for="car in data" :key="car.id" :car="car" />
+  <div id="carlist">
+    <h1 class="list_title">Catálogo</h1>
+    <div class="card_container">
+      <CarListCard v-for="car in data" :key="car.id" :data="car" />
     </div>
   </div>
 </template>
 
 <script>
-import Car from '../components/car/CarList.vue'
+import CarListCard from '../components/CarList/CarListCard.vue'
 let data = require('../assets/mock.json')
 
 export default {
-  name: "Content",
-  components: { Car },
+  name: "CarList",
+  components: { CarListCard },
   data: () => ({
     data: data
   })
@@ -21,16 +21,16 @@ export default {
 </script>
 
 <style lang="scss">
-#content {
+#carlist {
   margin: 1em;
   margin-top: 5.5em;
 }
 
-.title {
+.list_title {
   font-size: 2.3em;
 }
 
-.car_container{
+.card_container{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
