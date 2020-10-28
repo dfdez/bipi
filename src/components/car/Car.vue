@@ -5,21 +5,11 @@
         <CarTitle :fontSize="'3em'" :title1="car.brand" :title2="car.model" />
       </div>
       <div class="flex_row">
-        <CarTags
-          :fontSize="'.8em'"
-          :background="car.tags.color"
-          :text="car.tags.color"
-        />
+        <CarTags :fontSize="'.8em'" :background="car.tags.color" :text="car.tags.color" />
         <CarTags :fontSize="'.8em'" :text="car.tags.year" />
       </div>
-      <div
-        class="flex_row"
-        style="align-items: baseline; justify-content: center;"
-      >
-        <img
-          class="car_picture"
-          :src="car.image || require('../../assets/icon.png')"
-        />
+      <div class="car_picture_container flex_row">
+        <img class="car_picture" :src="car.image || require('../../assets/icon.png')" />
       </div>
     </div>
   </div>
@@ -48,6 +38,11 @@ export default {
     width: fit-content;
 }
 
+.car_picture_container {
+  align-items: baseline;
+  justify-content: center;
+}
+
 .car_component_content {
   margin: 0.6em;
   display: flex;
@@ -59,29 +54,19 @@ export default {
   flex-flow: row;
 }
 
-/* @media (max-width: 962px) { */
-/*   .car_component { */
-/*     width: 100% !important; */
-/*   } */
-/*   .car_title{ */
-/*     font-size: 1.5em !important; */
-/*   } */
-/* } */
-/*  */
-/* @media (max-width: 1250px) { */
-/*   .car_picture { */
-/*     width: 100%; */
-/*   } */
-/* } */
-
-
-.discount {
-  text-decoration: line-through $accent;
-  color: $accent;
-  margin-right: 0.4em;
+@media (max-width: 962px) {
+  .car_title{
+    font-size: 1.5em !important;
+  }
 }
 
-.price {
-  font-size: 1.2em;
+@media (max-width: 1250px) {
+  .car_component{
+    width: 100% !important;
+  }
+
+  .car_picture {
+    width: 100%;
+  }
 }
 </style>

@@ -24,7 +24,6 @@ export default {
 #content {
   margin: 1em;
   margin-top: 5.5em;
-  /* height: 100vh; */
 }
 
 .title {

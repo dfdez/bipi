@@ -8,8 +8,8 @@
         <CarTags :background="car.tags.color" :text="car.tags.color" />
         <CarTags :text="car.tags.year" />
       </div>
-      <div class="flex_row" style="align-items: baseline; justify-content: flex-end;">
-        <img class="car_picture" :src="car.image || require('../../assets/icon.png')">
+      <div class="car_list_picture_container flex_row" style="">
+        <img class="car_list_picture" :src="car.image || require('../../assets/icon.png')">
         <span style="font-size: 10px">desde</span>
       </div>
       <div class="flex-row" style="text-align: right">
@@ -55,21 +55,16 @@ export default {
   flex-flow: row;
 }
 
-.car_picture {
-  width: 25em;
-  min-width: 15em;
-  max-height: 20em;
-  object-fit: contain;
+.car_list_picture_container {
+  align-items: baseline;
+  justify-content: flex-end;
 }
 
-@media (max-width: 962px){
-  .car_picture {
-    /* width: 80%; */
-    width: 100%;
-  }
-  .car_component {
-    width: 95%;
-  }
+.car_list_picture {
+  width: 25em;
+  min-width: 15em;
+  max-height: 13em;
+  object-fit: contain;
 }
 
 .discount {
@@ -81,4 +76,16 @@ export default {
 .price {
   font-size: 1.2em;
 }
+
+@media (max-width: 962px){
+  .car_component {
+    width: 95%;
+  }
+
+  .car_list_picture {
+    width: 100%;
+    max-height: 20em;
+  }
+}
+
 </style>

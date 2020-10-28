@@ -6,7 +6,7 @@
       <div class="car_info">
         <div class="car_description border_special">
           <span class="descriptionTitle">Descripción</span>
-          <p style="white-space: break-spaces;font-size: .8em">{{test}}</p>
+          <p class="descriptionContent">{{test}}</p>
         </div>
         <div @click="infoClicked" class="car_pricing border_special">
           <div :style="pricing" class="car_pricing_info">
@@ -35,7 +35,7 @@ import Car from '../components/car/Car.vue'
 let data = require('../assets/mock.json')
 
 export default {
-  name: "Info",
+  name: "CarInfo",
   components: { Car },
   data: () => ({
     listenerStatus: false,
@@ -57,9 +57,11 @@ export default {
       }
     },
     infoClicked(){
-      this.seePricing.opacity = 0;
-      this.pricing.height = '7em !important'
-      document.body.addEventListener("click", this.bodyClick);
+      if (document.body.clientWidth < 963){
+        this.seePricing.opacity = 0;
+        this.pricing.height = '7em !important'
+        document.body.addEventListener("click", this.bodyClick);
+      }
     }
   }
 }
@@ -71,7 +73,6 @@ export default {
 #info {
   margin: 1em;
   margin-top: 5.5em;
-  /* height: 100vh; */
 }
 
 .title {
@@ -104,18 +105,17 @@ export default {
   font-size: 1.5em;
 }
 
+.descriptionContent {
+  white-space: break-spaces;
+  font-size: .8em
+}
+
 .pricing_flex{
   display: flex;
   justify-content: space-between;
 }
 
 @media (max-width: 1250px){
-  .car_picture {
-    width: 100%;
-  }
-  .car_component{
-    width: 100% !important;
-  }
   .content{
     flex-direction: column;
   }
@@ -129,12 +129,13 @@ export default {
   }
 }
 
-@media (max-width: 962px){
-
-  .car_title{
-    font-size: 1.5em !important;
+@media (min-width: 963px){
+  .car_pricing_info {
+    height: auto !important;
   }
+}
 
+@media (max-width: 962px){
   .border_special {
     border: none !important;
   }
@@ -171,7 +172,7 @@ export default {
 }
 
 .car_info {
-  width: 25%
+  width: 25%;
 }
 
 .border_special {

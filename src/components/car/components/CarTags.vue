@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "CarInfo",
+  name: "CarTags",
   props: {
     text: [String, Number],
     background: {

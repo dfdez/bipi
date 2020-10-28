@@ -1,22 +1,22 @@
 <template>
   <div id="app">
     <Header />
-    <!-- <Content /> -->
-    <Info />
+    <!-- <CarList /> -->
+    <CarInfo />
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-// import Content from "./pages/Content.vue";
-import Info from "./pages/Info.vue";
+// import CarList from "./pages/CarList.vue";
+import CarInfo from "./pages/CarInfo.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    Info,
-    // Content
+    CarInfo,
+    // CarList
   }
 };
 </script>
