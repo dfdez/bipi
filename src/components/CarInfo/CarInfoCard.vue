@@ -8,8 +8,8 @@
         <CarTags :fontSize="'.8em'" :background="data.tags.color" :text="data.tags.color" />
         <CarTags :fontSize="'.8em'" :text="data.tags.year" />
       </div>
-      <div class="info_picture_container flex_row">
-        <img class="info_picture" :src="data.image || require('../../assets/icon.png')" />
+      <div class="info_card_picture_container flex_row">
+        <img class="info_card_picture" :src="data.image || require('../../assets/icon.png')" />
       </div>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
     width: fit-content;
 }
 
-.info_picture_container {
+.info_card_picture_container {
   align-items: baseline;
   justify-content: center;
 }
@@ -50,6 +50,7 @@ export default {
 }
 
 @media (max-width: 962px) {
+  //Class in CarTitle
   .car_title{
     font-size: 1.5em !important;
   }
@@ -60,7 +61,7 @@ export default {
     width: 100% !important;
   }
 
-  .info_picture {
+  .info_card_picture {
     width: 100%;
   }
 }

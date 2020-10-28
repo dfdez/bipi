@@ -1,18 +1,16 @@
 <template>
   <div id="header">
-    <div class="header">
-      <div class="logo">
-        <img class="logo_img" src="../assets/bipi.png" />
+    <div class="logo">
+      <img class="logo_img" src="../assets/bipi.png" />
+    </div>
+    <div class="menu_items" v-bind:style=menuStyle >
+      <div v-for="item in menu_items" :key="item" class="menu_item">
+        <span>{{item}}</span>
       </div>
-      <div class="menu_items" v-bind:style=menuStyle >
-        <div v-for="item in menu_items" :key="item" class="menu_item">
-          <span>{{item}}</span>
-        </div>
-       </div>
-      <div @click="menuClick" class="menu_button">
-        <img v-if="menu_closed" class="menu_button_img" src="../assets/menu.svg" />
-        <img v-else class="menu_button_img" src="../assets/close.svg" />
-      </div>
+    </div>
+    <div @click="menuClick" class="menu_button">
+      <img v-if="menu_closed" class="menu_button_img" src="../assets/menu.svg" />
+      <img v-else class="menu_button_img" src="../assets/close.svg" />
     </div>
   </div>
 </template>
@@ -45,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss">
-.header {
+#header {
   display: flex;
   width: 100%;
   box-shadow: 0 0 1em #e3e3e3;
@@ -89,12 +87,6 @@ export default {
   text-align: center;
 }
 
-@media (min-width: 963px) {
-  .menu_items {
-    height: auto !important;
-  }
-}
-
 @media (max-width: 962px) {
   .header {
     align-items: flex-start;
@@ -118,4 +110,9 @@ export default {
   }
 }
 
+@media (min-width: 963px) {
+  .menu_items {
+    height: auto !important;
+  }
+}
 </style>

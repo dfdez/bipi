@@ -8,13 +8,13 @@
         <CarTags :background="data.tags.color" :text="data.tags.color" />
         <CarTags :text="data.tags.year" />
       </div>
-      <div class="list_picture_container flex_row" style="">
-        <img class="list_picture" :src="data.image || require('../../assets/icon.png')">
+      <div class="list_card_picture_container flex_row" style="">
+        <img class="list_card_picture" :src="data.image || require('../../assets/icon.png')">
         <span style="font-size: 10px">desde</span>
       </div>
       <div class="flex-row" style="text-align: right">
-        <span v-if="data.isOnOffer" class="list_discount">{{Math.round(data.price)}}€</span>
-        <b class="list_price">{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
+        <span v-if="data.isOnOffer" class="list_card_discount">{{Math.round(data.price)}}€</span>
+        <b class="list_card_price">{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
       </div>
     </div>
   </div>
@@ -50,25 +50,25 @@ export default {
   flex-direction: column;
 }
 
-.list_picture_container {
+.list_card_picture_container {
   align-items: baseline;
   justify-content: flex-end;
 }
 
-.list_picture {
+.list_card_picture {
   width: 25em;
   min-width: 15em;
   max-height: 13em;
   object-fit: contain;
 }
 
-.list_discount {
+.list_card_discount {
   text-decoration: line-through $accent;
   color: $accent;
   margin-right: .4em;
 }
 
-.list_price {
+.list_card_price {
   font-size: 1.2em;
 }
 
@@ -77,10 +77,9 @@ export default {
     width: 95%;
   }
 
-  .list_picture {
+  .list_card_picture {
     width: 100%;
     max-height: 20em;
   }
 }
-
 </style>
