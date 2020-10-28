@@ -2,7 +2,7 @@
   <div id="carlist">
     <h1 class="list_title">Catálogo</h1>
     <div class="card_container">
-      <CarListCard v-for="car in data" :key="car.id" :data="car" />
+      <CarListCard v-for="(car,index) in data" :key="car.id" :query="{ id: index }" :data="car" />
     </div>
   </div>
 </template>

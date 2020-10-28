@@ -1,11 +1,13 @@
 <template>
   <div id="info">
-    <div class="info_title"><span class="arrow">&#x3c;</span>Ir al catálogo</div>
+    <router-link to="/">
+      <div class="info_title"><span class="arrow">&#x3c;</span>Ir al catálogo</div>
+    </router-link>
     <div class="info_content">
-      <CarInfoCard style="width: 73%;" :data="data[0]" />
+      <CarInfoCard style="width: 73%;" :data="data[id]" />
       <div class="car_info">
-        <CarInfoDescription :text="text" />
-        <CarInfoPricing :data="data[0]"/>
+        <CarInfoDescription :text="data[id].description" />
+        <CarInfoPricing :data="data[id]"/>
       </div>
     </div>
    </div>
@@ -27,8 +29,12 @@ export default {
   },
   data: () => ({
     data: data,
-    text: "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.\n\nDuis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus."
+    id: null,
   }),
+  created(){
+    this.id = this.$route.query.id
+    this.$store.commit('changeId', this.id);
+  }
 }
 </script>
 

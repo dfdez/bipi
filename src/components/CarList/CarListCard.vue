@@ -1,22 +1,24 @@
 <template>
   <div class="list_card border">
-    <div class="list_card_content">
-      <div class="flex_row">
-        <CarTitle :title1="data.brand" :title2="data.model" />
+    <router-link :to="{ name: 'Info', query }">
+      <div class="list_card_content">
+        <div class="flex_row">
+          <CarTitle :title1="data.brand" :title2="data.model" />
+        </div>
+        <div class="flex_row">
+          <CarTags :background="data.tags.color" :text="data.tags.color" />
+          <CarTags :text="data.tags.year" />
+        </div>
+        <div class="list_card_picture_container flex_row" style="">
+          <img class="list_card_picture" :src="data.image || require('../../assets/icon.png')">
+          <span style="font-size: 10px">desde</span>
+        </div>
+        <div class="flex-row" style="text-align: right">
+          <span v-if="data.isOnOffer" class="list_card_discount">{{Math.round(data.price)}}€</span>
+          <b class="list_card_price">{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
+        </div>
       </div>
-      <div class="flex_row">
-        <CarTags :background="data.tags.color" :text="data.tags.color" />
-        <CarTags :text="data.tags.year" />
-      </div>
-      <div class="list_card_picture_container flex_row" style="">
-        <img class="list_card_picture" :src="data.image || require('../../assets/icon.png')">
-        <span style="font-size: 10px">desde</span>
-      </div>
-      <div class="flex-row" style="text-align: right">
-        <span v-if="data.isOnOffer" class="list_card_discount">{{Math.round(data.price)}}€</span>
-        <b class="list_card_price">{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
-      </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -27,7 +29,8 @@ import CarTags from "../CarTags.vue"
 export default {
     name: "CarListCard",
     props: {
-      data: Object
+      data: Object,
+      query: Object
     },
   components: {
     CarTitle,

@@ -8,8 +8,13 @@ import CarInfo from "../pages/CarInfo.vue";
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: CarList },
-  { path: '/info', component: CarInfo },
+  { path: '/', name: "List", component: CarList },
+  { path: '/info', name: "Info", component: CarInfo,
+    beforeEnter: (to, _, next) => {
+      if (to.query.id != undefined) next();
+      else next('/');
+    }
+  },
   { path: '*', redirect: '/' }
 ]
 

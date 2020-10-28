@@ -1,7 +1,7 @@
 <template>
-  <div class="car_description border_special">
-    <span class="descriptionTitle">Descripción</span>
-    <p class="descriptionContent">{{text}}</p>
+  <div class="info_description border_special">
+    <span class="info_description_title">Descripción</span>
+    <p class="info_description_content">{{text}}</p>
   </div>
 </template>
 
@@ -15,23 +15,23 @@ export default {
 </script>
 
 <style lang="scss">
-.car_description {
+.info_description {
   padding: 1em;
   background: #f1f5f9;
 }
 
-.descriptionTitle {
+.info_description_title {
   font-style: italic;
   font-size: 1.5em;
 }
 
-.descriptionContent {
+.info_description_content {
   white-space: break-spaces;
   font-size: .8em
 }
 
 @media (max-width: 962px){
-  .car_description {
+  .info_description {
     background: none !important;
   }
 }

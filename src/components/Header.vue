@@ -1,11 +1,13 @@
 <template>
   <div id="header">
-    <div class="logo">
-      <img class="logo_img" src="../assets/bipi.png" />
-    </div>
+    <router-link to="/">
+      <div class="logo">
+        <img class="logo_img" src="../assets/bipi.png" />
+      </div>
+    </router-link>
     <div class="menu_items" v-bind:style=menuStyle >
-      <div v-for="item in menu_items" :key="item" class="menu_item">
-        <span>{{item}}</span>
+      <div v-for="item in menu_items" :key="item.name" class="menu_item">
+        <router-link :to="item.to">{{item.name}}</router-link>
       </div>
     </div>
     <div @click="menuClick" class="menu_button">
@@ -19,10 +21,6 @@
 export default {
   name: "Header",
   data: () => ({
-    menu_items: [
-      'CATÁLOGO',
-      'ÚLTIMO COCHE VISITADO'
-    ],
     menu_closed: true,
     menuStyle: {}
   }),
@@ -30,13 +28,27 @@ export default {
     menuClick(){
       this.menu_closed = !this.menu_closed;
       if (!this.menu_closed){
-        // let menu_height = document.getElementsByClassName("menu_item")[0].offsetHeight
-        // this.menuStyle = { height: `${menu_height * this.menu_items.length}em` }
         this.menuStyle = { height: `${4 * this.menu_items.length}em` }
       }
       else {
         this.menuStyle = {}
       }
+    }
+  },
+  computed: {
+    menu_items: function()  {
+      return ([
+      {
+        name: 'CATÁLOGO',
+        to: { path: '/' }
+      },
+      {
+        name: 'ÚLTIMO COCHE VISITADO',
+        to: {
+          path: '/info',
+          query: { id: this.$store.state.last_id }
+        }
+      }]);
     }
   }
 };
@@ -53,9 +65,15 @@ export default {
   background:white;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 .logo {
   display: flex;
   flex-direction: column;
+  cursor: default;
 }
 
 .logo_img {
