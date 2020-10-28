@@ -1,4 +1,4 @@
-# front
+# Bipi Front
 
 ## Project setup
 ```
