@@ -1,13 +1,13 @@
 <template>
   <div id="header">
-    <router-link to="/">
+    <router-link @click.native="checkMenu" to="/">
       <div class="logo">
         <img class="logo_img" src="../assets/bipi.png" />
       </div>
     </router-link>
     <div class="menu_items" v-bind:style=menuStyle >
       <div v-for="item in menu_items" :key="item.name" class="menu_item">
-        <router-link :to="item.to">{{item.name}}</router-link>
+        <router-link @click.native="checkMenu" :to="item.to">{{item.name}}</router-link>
       </div>
     </div>
     <div @click="menuClick" class="menu_button">
@@ -33,6 +33,9 @@ export default {
       else {
         this.menuStyle = {}
       }
+    },
+    checkMenu(){
+      if(!this.menu_closed) this.menuClick();
     }
   },
   computed: {

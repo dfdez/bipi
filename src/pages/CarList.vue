@@ -1,6 +1,9 @@
 <template>
   <div id="carlist">
-    <h1 class="list_title">Catálogo</h1>
+    <div class="car_list_header">
+      <h1 class="list_title">Catálogo</h1>
+      <CarListFilter />
+    </div>
     <div class="card_container">
       <CarListCard v-for="(car,index) in data" :key="car.id" :query="{ id: index }" :data="car" />
     </div>
@@ -9,14 +12,22 @@
 
 <script>
 import CarListCard from '../components/CarList/CarListCard.vue'
-let data = require('../assets/mock.json')
+import CarListFilter from '../components/CarList/CarListFilter.vue'
 
 export default {
   name: "CarList",
-  components: { CarListCard },
+  components: {
+    CarListCard,
+    CarListFilter
+  },
   data: () => ({
-    data: data
-  })
+    group: null
+  }),
+  computed: {
+    data(){
+      return this.$store.state.cars
+    }
+  }
 }
 </script>
 
@@ -24,6 +35,12 @@ export default {
 #carlist {
   margin: 1em;
   margin-top: 5.5em;
+}
+
+.car_list_header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .list_title {

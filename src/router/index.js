@@ -11,7 +11,7 @@ const routes = [
   { path: '/', name: "List", component: CarList },
   { path: '/info', name: "Info", component: CarInfo,
     beforeEnter: (to, _, next) => {
-      if (to.query.id != undefined) next();
+      if (to.query.id != null) next();
       else next('/');
     }
   },
