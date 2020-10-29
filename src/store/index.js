@@ -12,6 +12,9 @@ const store = new Vuex.Store({
     changeId(state, id) {
       state.last_id = id;
     },
+    changeCar(state, car){
+      state.cars[car.id] = car.data;
+    },
     changeCars(state, newList){
       state.cars = newList;
     }

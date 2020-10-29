@@ -17,7 +17,6 @@
 import CarInfoCard from '../components/CarInfo/CarInfoCard.vue'
 import CarInfoDescription from '../components/CarInfo/CarInfoDescription.vue'
 import CarInfoPricing from '../components/CarInfo/CarInfoPricing.vue'
-import { getCar } from '../api/cars'
 
 export default {
   name: "CarInfo",
@@ -26,17 +25,10 @@ export default {
     CarInfoDescription,
     CarInfoPricing
   },
-  data: () => ({
-    id: null,
-    data: {}
-  }),
-  created(){
-    this.id = this.$route.query.id
-    this.$store.commit('changeId', this.id);
-
-    let data = this.$store.state.cars[this.id]
-    if (data) this.data = data
-    else getCar(this.id).then(r => this.data = r.data)
+  computed: {
+    data(){
+      return this.$store.state.cars[this.$route.query.id]
+    }
   }
 }
 </script>

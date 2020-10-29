@@ -13,7 +13,6 @@
 <script>
 import CarListCard from '../components/CarList/CarListCard.vue'
 import CarListFilter from '../components/CarList/CarListFilter.vue'
-import { getCars } from '../api/cars'
 
 export default {
   name: "CarList",
@@ -24,9 +23,6 @@ export default {
   data: () => ({
     group: null
   }),
-  beforeCreate(){
-    getCars().then(r => this.$store.commit("changeCars", r.data))
-  },
   computed: {
     data(){
       return this.$store.state.cars
