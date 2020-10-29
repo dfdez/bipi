@@ -40,19 +40,17 @@ export default {
       this.$store.commit("changeCars", filtered);
     },
     filterData(filterFnc){
-      let data = this.cache[0]
+      let data = this.$store.state.cars
       let ordered = [ ...data ]
       ordered.sort(filterFnc)
       this.cache[this.filter] = ordered
+      if (!this.cache[0]) this.cache[0] = data;
       return ordered
     },
     priceDown: (a,b) => (a.price > b.price) ? 1 : -1,
     priceUp: (a,b) => (a.price < b.price) ? 1 : -1,
     nameDown: (a,b) => (a.brand.localeCompare(b.brand)),
     nameUp: (a,b) => (b.brand.localeCompare(a.brand)),
-  },
-  created(){
-    this.cache[0] = this.$store.state.cars;
   }
 }
 </script>

@@ -25,10 +25,11 @@ $inter: "Inter Regular", serif;
 
 body {
   font-family: $inter;
+  margin: 0;
 }
 
-body {
-  margin: 0;
+html {
+  scroll-behavior: smooth;
 }
 
 </style>

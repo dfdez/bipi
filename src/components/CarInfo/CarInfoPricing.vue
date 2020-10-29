@@ -5,11 +5,11 @@
         <span>Precio</span>
         <b>{{Math.round(data.price)}}€</b>
       </div>
-      <div v-if="data.isOnOffer" class="info_pricing_flex" style="margin-top: .5em;">
+      <div v-if="data.isOnOffer" class="info_pricing_discount info_pricing_flex">
         <span>Descuento</span>
         <b class="accent">-{{Math.round(data.offerDiscount)}}€</b>
       </div>
-      <div class="info_pricing_flex" style="margin-top: 1.5em; font-size: 1.3em;">
+      <div class="info_pricing_total info_pricing_flex">
         <b>Precio Total</b>
         <b>{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
       </div>
@@ -61,6 +61,15 @@ export default{
 .info_pricing_flex{
   display: flex;
   justify-content: space-between;
+}
+
+.info_pricing_discount {
+  margin-top: .5em;
+}
+
+.info_pricing_total {
+  margin-top: 1.5em; 
+  font-size: 1.3em;
 }
 
 .info_pricing_button {

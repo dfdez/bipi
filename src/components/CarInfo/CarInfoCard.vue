@@ -5,8 +5,8 @@
         <CarTitle :fontSize="'3em'" :title1="data.brand" :title2="data.model" />
       </div>
       <div class="flex_row">
-        <CarTags :fontSize="'.8em'" :background="data.tags.color" :text="data.tags.color" />
-        <CarTags :fontSize="'.8em'" :text="data.tags.year" />
+        <CarTags :fontSize="'.8em'" :background="tags.color" :text="tags.color" />
+        <CarTags :fontSize="'.8em'" :text="tags.year" />
       </div>
       <div class="info_card_picture_container flex_row">
         <img class="info_card_picture" :src="data.image || require('../../assets/icon.png')" />
@@ -28,6 +28,11 @@ export default {
     CarTitle,
     CarTags,
   },
+  computed: {
+    tags(){
+      return this.data.tags || {};
+    }
+  }
 };
 </script>
 

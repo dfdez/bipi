@@ -1,16 +1,16 @@
 <template>
   <div id="header">
-    <router-link @click.native="checkMenu" to="/">
+    <router-link @click.native="menuClick" to="/">
       <div class="logo">
         <img class="logo_img" src="../assets/bipi.png" />
       </div>
     </router-link>
     <div class="menu_items" v-bind:style=menuStyle >
       <div v-for="item in menu_items" :key="item.name" class="menu_item">
-        <router-link @click.native="checkMenu" :to="item.to">{{item.name}}</router-link>
+        <router-link @click.native="menuClick" :to="item.to">{{item.name}}</router-link>
       </div>
     </div>
-    <div @click="menuClick" class="menu_button">
+    <div @click="menuToggle" class="menu_button">
       <img v-if="menu_closed" class="menu_button_img" src="../assets/menu.svg" />
       <img v-else class="menu_button_img" src="../assets/close.svg" />
     </div>
@@ -25,7 +25,7 @@ export default {
     menuStyle: {}
   }),
   methods: {
-    menuClick(){
+    menuToggle(){
       this.menu_closed = !this.menu_closed;
       if (!this.menu_closed){
         this.menuStyle = { height: `${4 * this.menu_items.length}em` }
@@ -34,8 +34,9 @@ export default {
         this.menuStyle = {}
       }
     },
-    checkMenu(){
-      if(!this.menu_closed) this.menuClick();
+    menuClick(){
+      window.scrollTo(0,0)
+      if(!this.menu_closed) this.menuToggle();
     }
   },
   computed: {

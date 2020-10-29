@@ -9,7 +9,7 @@
           <CarTags :background="data.tags.color" :text="data.tags.color" />
           <CarTags :text="data.tags.year" />
         </div>
-        <div class="list_card_picture_container flex_row" style="">
+        <div class="list_card_picture_container flex_row">
           <img class="list_card_picture" :src="data.image || require('../../assets/icon.png')">
           <span style="font-size: 10px">desde</span>
         </div>

@@ -4,10 +4,10 @@
       <div class="info_title"><span class="arrow">&#x3c;</span>Ir al catálogo</div>
     </router-link>
     <div class="info_content">
-      <CarInfoCard style="width: 73%;" :data="data[id]" />
+      <CarInfoCard style="width: 73%;" :data="data" />
       <div class="car_info">
-        <CarInfoDescription :text="data[id].description" />
-        <CarInfoPricing :data="data[id]"/>
+        <CarInfoDescription :text="data.description" />
+        <CarInfoPricing :data="data"/>
       </div>
     </div>
    </div>
@@ -17,8 +17,7 @@
 import CarInfoCard from '../components/CarInfo/CarInfoCard.vue'
 import CarInfoDescription from '../components/CarInfo/CarInfoDescription.vue'
 import CarInfoPricing from '../components/CarInfo/CarInfoPricing.vue'
-
-let data = require('../assets/mock.json')
+import { getCar } from '../api/cars'
 
 export default {
   name: "CarInfo",
@@ -28,12 +27,16 @@ export default {
     CarInfoPricing
   },
   data: () => ({
-    data: data,
     id: null,
+    data: {}
   }),
   created(){
     this.id = this.$route.query.id
     this.$store.commit('changeId', this.id);
+
+    let data = this.$store.state.cars[this.id]
+    if (data) this.data = data
+    else getCar(this.id).then(r => this.data = r.data)
   }
 }
 </script>
