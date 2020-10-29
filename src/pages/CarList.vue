@@ -5,7 +5,7 @@
       <CarListFilter />
     </div>
     <div class="card_container">
-      <CarListCard v-for="(car,index) in data" :key="car.id" :query="{ id: index }" :data="car" />
+      <CarListCard v-for="car in data" :key="car.id" :query="{ id: car._id }" :data="car" />
     </div>
   </div>
 </template>

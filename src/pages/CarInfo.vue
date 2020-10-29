@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     data(){
-      return this.$store.state.cars[this.$route.query.id]
+      return this.$store.state.car
     }
   }
 }

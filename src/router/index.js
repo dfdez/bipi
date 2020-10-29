@@ -16,9 +16,7 @@ const routes = [
       await getCars().then(r => {
         store.commit("changeCars", r.data)
         next();
-      }).catch(()=>{
-        next('/404');
-      })
+      }).catch(()=>{ next('/404'); })
     }
   },
   { path: '/info', name: "Info", component: CarInfo,
@@ -27,11 +25,13 @@ const routes = [
       if (id == null) next('/');
       else  {
         await getCar(id).then(r => {
-          store.commit("changeCar",{ id, data: r.data})
           store.commit('changeId', id);
+          store.commit('changeCar', r.data)
           next();
-        }).catch(() => {
-          next('/404');
+        }).catch((err) => {
+          err = err.response.data
+          if (err.code == "400") next('/');
+          else  next('/404')
         })
       }
     }
