@@ -1,25 +1,25 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
     last_id: null,
     cars: [],
-    car: {}
+    car: {},
   },
   mutations: {
     changeId(state, id) {
       state.last_id = id;
     },
-    changeCar(state, car){
-      state.car = car
+    changeCar(state, car) {
+      state.car = car;
     },
-    changeCars(state, newList){
+    changeCars(state, newList) {
       state.cars = newList;
-    }
+    },
   },
-})
+});
 
-export default store
+export default store;

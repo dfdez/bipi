@@ -1,36 +1,38 @@
 <template>
   <div id="info">
     <router-link to="/">
-      <div class="info_title"><span class="arrow">&#x3c;</span>Ir al catálogo</div>
+      <div class="info_title">
+        <span class="arrow">&#x3c;</span>Ir al catálogo
+      </div>
     </router-link>
     <div class="info_content">
-      <CarInfoCard style="width: 73%;" :data="data" />
+      <CarInfoCard style="width: 73%" :data="data" />
       <div class="car_info">
         <CarInfoDescription :text="data.description" />
-        <CarInfoPricing :data="data"/>
+        <CarInfoPricing :data="data" />
       </div>
     </div>
-   </div>
+  </div>
 </template>
 
 <script>
-import CarInfoCard from '../components/CarInfo/CarInfoCard.vue'
-import CarInfoDescription from '../components/CarInfo/CarInfoDescription.vue'
-import CarInfoPricing from '../components/CarInfo/CarInfoPricing.vue'
+import CarInfoCard from "../components/CarInfo/CarInfoCard.vue";
+import CarInfoDescription from "../components/CarInfo/CarInfoDescription.vue";
+import CarInfoPricing from "../components/CarInfo/CarInfoPricing.vue";
 
 export default {
   name: "CarInfo",
   components: {
     CarInfoCard,
     CarInfoDescription,
-    CarInfoPricing
+    CarInfoPricing,
   },
   computed: {
-    data(){
-      return this.$store.state.car
-    }
-  }
-}
+    data() {
+      return this.$store.state.car;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -54,8 +56,8 @@ export default {
 }
 
 .arrow {
-  font-size: .6em;
-  margin-right: .5em;
+  font-size: 0.6em;
+  margin-right: 0.5em;
   color: $accent;
   font-weight: bold;
 }
@@ -71,7 +73,7 @@ export default {
   border-color: #cccccc70;
 }
 
-@media (max-width: 1250px){
+@media (max-width: 1250px) {
   .info_content {
     flex-direction: column;
   }
@@ -81,7 +83,7 @@ export default {
   }
 }
 
-@media (max-width: 962px){
+@media (max-width: 962px) {
   .border_special {
     border: none !important;
   }
