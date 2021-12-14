@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Utils from '../utils/index.js'
 
 Vue.use(Vuex);
 
@@ -7,7 +8,7 @@ const store = new Vuex.Store({
   state: {
     last_id: null,
     cars: [],
-    car: {},
+    car: {}
   },
   mutations: {
     changeId(state, id) {
@@ -16,8 +17,9 @@ const store = new Vuex.Store({
     changeCar(state, car) {
       state.car = car;
     },
-    fetchPets(state, newList) {
-      state.cars = newList;
+    updatePets(state, { pets, sort }) {
+      const petsArray = pets || state.cars
+      state.cars = sort ? Utils.sortPets({ pets: petsArray, sort }) : petsArray;
     },
   },
 });

@@ -2,15 +2,15 @@
   <div class="card_pager">
     <span class="card_pager_back" @click="goToPrevPage"> {{ page > 1 ? '👈' : '🐶' }} </span>
     <div>
-      <span> {{ page }} </span>
+      <span> {{ _page }} </span>
     </div>
     <span class="card_pager_next" @click="goToNextPage"> 👉 </span>
   </div>
 </template>
 
 <script>
-import Pets from '../../api/cars.js'
-import store from "../../store";
+// import Pets from '../../api/cars.js'
+// import store from "../../store";
 
 export default {
   name: "CarListPager",
@@ -18,29 +18,28 @@ export default {
     page: 1,
     endOfPets: false
   }),
+  computed: {
+    _page () {
+      return this.$route.query.page || 1
+    }
+  },
   created () {
     this.page = this.$route.query.page || 1
   },
   methods: {
    async updatePetsPage () {
-    const { query } = this.$route
-    const newQuery = { ...query, page: this.page }
-    await Pets.getPets(newQuery).then((pets) => {
-      console.log(pets)
-      if (pets.data.length) {
-        store.commit("fetchPets", pets.data);
-        this.$router.replace({ query: newQuery})
-      }
-      else this.page--
-    })
+    const newQuery = { ...this.$route.query, page: this.page }
+    this.$router.push({ query: newQuery})
    },
   async goToPrevPage () {
+    this.page = this._page
     if (this.page === 1) return
     this.page--
     await this.updatePetsPage()
     window.scrollTo(0,0)
   },
   async goToNextPage () {
+    this.page = this._page
     this.page++
     await this.updatePetsPage()
     window.scrollTo(0,0)

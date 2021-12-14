@@ -2,7 +2,7 @@
   <div id="carlist">
     <div class="car_list_header">
       <h1 class="list_title">Pets</h1>
-      <CarListFilter />
+      <CarListFilter :pets="data" />
     </div>
     <div class="card_container">
       <CarListCard v-for="pet in data" :key="pet.id" :query="{ id: pet.id }" :data="pet" />
@@ -27,25 +27,31 @@ export default {
     const query = { ...route.query, page }
     await Pets.getPets(query)
       .then((pets) => {
-        store.commit("fetchPets", pets.data);
+        store.commit("updatePets", { pets: pets.data, sort: route.query.sort });
         next();
       })
       .catch(() => {
         next("/404");
       });
   },
-  // beforeRouteUpdate: async (route, oldRoute, next) => {
-  //   const page = route.query.page || 1
-  //   const query = { ...route.query, page }
-  //   await Pets.getPets(query)
-  //     .then((pets) => {
-  //       store.commit("fetchPets", pets.data);
-  //       next();
-  //     })
-  //     .catch(() => {
-  //       next("/404");
-  //     });
-  // },
+  beforeRouteUpdate: async (route, oldRoute, next) => {
+    if (route.query.sort && (route.query.sort !== oldRoute.query.sort)) next()
+    else {
+      const page = route.query.page || 1
+      const query = { ...route.query, page }
+      await Pets.getPets(query)
+        .then((pets) => {
+          if (!pets.data.length && route.query.page !== 1) next(false)
+          else {
+            store.commit("updatePets", { pets: pets.data, sort: route.query.sort });
+            next();
+          }
+        })
+        .catch(() => {
+          next("/404");
+        });
+      }
+  },
   name: "CarList",
   components: {
     CarListCard,
@@ -58,6 +64,9 @@ export default {
   computed: {
     data(){
       return this.$store.state.cars
+    },
+    sort () {
+      return this.$route.query.sort
     }
   }
 }
