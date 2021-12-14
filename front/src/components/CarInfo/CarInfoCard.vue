@@ -2,22 +2,23 @@
   <div class="info_card border">
     <div class="info_card_content">
       <div class="flex_row">
-        <CarTitle :fontSize="'3em'" :title1="data.brand" :title2="data.model" />
+        <h1>{{ data.name }}</h1>
+        <!-- <CarTitle :fontSize="'3em'" :title1="data.brand" :title2="data.model" /> -->
       </div>
-      <div class="flex_row">
-        <CarTags :fontSize="'.8em'" :background="tags.color" :text="tags.color" />
-        <CarTags :fontSize="'.8em'" :text="tags.year" />
-      </div>
+      <!-- <div class="flex_row">
+        <CarTags :fontSize="'.8em'" :background="tags.color" text="tags.color" />
+        <CarTags :fontSize="'.8em'" text="tags.year" />
+      </div> -->
       <div class="info_card_picture_container flex_row">
-        <img class="info_card_picture" :src="data.image || require('../../assets/icon.png')" />
+        <img class="info_card_picture" :src="data.photo_url || require('../../assets/fever.png')" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import CarTitle from "../CarTitle.vue";
-import CarTags from "../CarTags.vue";
+// import CarTitle from "../CarTitle.vue";
+// import CarTags from "../CarTags.vue";
 
 export default {
   name: "CarCard",
@@ -25,8 +26,8 @@ export default {
     data: Object,
   },
   components: {
-    CarTitle,
-    CarTags,
+    // CarTitle,
+    // CarTags,
   },
   computed: {
     tags(){
@@ -46,6 +47,7 @@ export default {
 .info_card_picture_container {
   align-items: baseline;
   justify-content: center;
+  max-width: 100%;
 }
 
 .info_card_content {

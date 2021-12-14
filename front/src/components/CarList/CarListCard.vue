@@ -3,19 +3,17 @@
     <router-link :to="{ name: 'Info', query }">
       <div class="list_card_content">
         <div class="flex_row">
-          <CarTitle :title1="data.brand" :title2="data.model" />
-        </div>
-        <div class="flex_row">
-          <CarTags :background="data.tags.color" :text="data.tags.color" />
-          <CarTags :text="data.tags.year" />
+          <h3 class="list_card_title">{{ data.name }}</h3>
         </div>
         <div class="list_card_picture_container flex_row">
-          <img class="list_card_picture" :src="data.image || require('../../assets/icon.png')">
-          <span style="font-size: 10px">desde</span>
+          <img class="list_card_picture" :src="data.photo_url || require('../../assets/fever.png')">
         </div>
-        <div class="flex-row" style="text-align: right">
-          <span v-if="data.isOnOffer" class="list_card_discount">{{Math.round(data.price)}}€</span>
-          <b class="list_card_price">{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
+        <div class="list_card_tags flex_row">
+            <CarTags :text="data.kind" :background="data.kind === 'isDog' ? '#06232c' : '#364550'" />
+            <CarTags :text="`Weight: ${data.weight} gr`" background="#635e48" />
+            <CarTags :text="`Height: ${data.height} cm`" background="#c2923a" />
+            <CarTags :text="`Length: ${data.length} cm`" background="##56574a" />
+            <CarTags v-if="!isDog" :text="`Lives: ${data.number_of_lives}`" background="grey" />
         </div>
       </div>
     </router-link>
@@ -23,7 +21,6 @@
 </template>
 
 <script>
-import CarTitle from "../CarTitle.vue"
 import CarTags from "../CarTags.vue"
 
 export default {
@@ -33,8 +30,12 @@ export default {
       query: Object
     },
   components: {
-    CarTitle,
     CarTags
+  },
+  computed: {
+    isDog () {
+      return this. data.kind === 'dog'
+    }
   }
 }
 </script>
@@ -53,13 +54,23 @@ export default {
   flex-direction: column;
 }
 
+.list_card_title {
+  margin-top: 0px;
+  margin-bottom: .5rem;
+}
+
 .list_card_picture_container {
   align-items: baseline;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.list_card_tags {
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .list_card_picture {
-  width: 25em;
+  // width: 25em;
   min-width: 15em;
   max-height: 13em;
   object-fit: contain;

@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     changeCar(state, car) {
       state.car = car;
     },
-    changeCars(state, newList) {
+    fetchPets(state, newList) {
       state.cars = newList;
     },
   },

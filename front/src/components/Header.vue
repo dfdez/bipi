@@ -2,7 +2,7 @@
   <div id="header">
     <router-link @click.native="menuClick" to="/">
       <div class="logo">
-        <img class="logo_img" src="../assets/bipi.png" />
+        <img class="logo_img" src="../assets/fever.png" />
       </div>
     </router-link>
     <div class="menu_items" v-bind:style=menuStyle >
@@ -43,14 +43,14 @@ export default {
     menu_items: function()  {
       return ([
       {
-        name: 'CATÁLOGO',
+        name: 'PETS',
         to: { path: '/' }
       },
       {
-        name: 'ÚLTIMO COCHE VISITADO',
+        name: 'PET OF THE DAY',
         to: {
           path: '/info',
-          query: { id: this.$store.state.last_id }
+          query: { id: new Date().getDay()}
         }
       }]);
     }
@@ -77,11 +77,11 @@ a {
 .logo {
   display: flex;
   flex-direction: column;
-  cursor: default;
+  cursor: pointer;
 }
 
 .logo_img {
-  width: 3em;
+  width: 4em;
   margin: 1em;
 }
 

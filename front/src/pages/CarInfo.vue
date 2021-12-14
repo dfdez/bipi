@@ -2,14 +2,14 @@
   <div id="info">
     <router-link to="/">
       <div class="info_title">
-        <span class="arrow">&#x3c;</span>Ir al catálogo
+        <span class="arrow">&#x3c;</span>Return to pets
       </div>
     </router-link>
     <div class="info_content">
       <CarInfoCard style="width: 73%" :data="data" />
       <div class="car_info">
         <CarInfoDescription :text="data.description" />
-        <CarInfoPricing :data="data" />
+        <CarInfoDetail :data="data" />
       </div>
     </div>
   </div>
@@ -18,14 +18,35 @@
 <script>
 import CarInfoCard from "../components/CarInfo/CarInfoCard.vue";
 import CarInfoDescription from "../components/CarInfo/CarInfoDescription.vue";
-import CarInfoPricing from "../components/CarInfo/CarInfoPricing.vue";
+import CarInfoDetail from "../components/CarInfo/CarInfoPricing.vue";
+import Pets from '../api/cars.js'
+import store from '../store'
 
 export default {
   name: "CarInfo",
   components: {
     CarInfoCard,
     CarInfoDescription,
-    CarInfoPricing,
+    CarInfoDetail
+  },
+  beforeRouteEnter: async (to, _, next) => {
+    let id = to.query.id;
+    if (id == null) next("/");
+    else {
+      console.log({id})
+      await Pets.getPetDetail(id)
+        .then((r) => {
+          console.log({r})
+          store.commit("changeId", id);
+          store.commit("changeCar", r.data);
+          next();
+        })
+        .catch((err) => {
+          err = err.response.data;
+          if (err.code == "400") next("/");
+          else next("/404");
+        });
+    }
   },
   computed: {
     data() {

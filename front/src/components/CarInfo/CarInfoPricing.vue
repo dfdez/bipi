@@ -1,20 +1,29 @@
 <template>
   <div @click="infoClicked" class="info_pricing border_special">
+    <h3 class="">Detailed Information</h3>
     <div :style="pricing" class="info_pricing_content">
       <div class="info_pricing_flex">
-        <span>Precio</span>
-        <b>{{Math.round(data.price)}}€</b>
+        <span>Kind</span>
+        <span>{{isDog ? '🐶' : '🐱'}}</span>
       </div>
-      <div v-if="data.isOnOffer" class="info_pricing_discount info_pricing_flex">
-        <span>Descuento</span>
-        <b class="accent">-{{Math.round(data.offerDiscount)}}€</b>
+      <div class="info_pricing_flex">
+        <span>Weight</span>
+          <span>{{data.weight}} gr 🏋️</span>
       </div>
-      <div class="info_pricing_total info_pricing_flex">
-        <b>Precio Total</b>
-        <b>{{data.isOnOffer ? Math.round(data.price - data.offerDiscount) : Math.round(data.price)}}€</b>
+      <div class="info_pricing_flex">
+        <span>Height</span>
+        <span>{{data.height}} cm 📏</span>
       </div>
+      <div class="info_pricing_flex">
+        <span>Length</span>
+        <span>{{data.length}} cm 📏</span>
+      </div>
+      <div v-if="!isDog" class="info_pricing_flex">
+        <span>Lives</span>
+        <span>{{data.number_of_lives}} lives 😼</span>
+      </div>
+      <h4 v-if="data.id === isPetOfTheDay">Today {{data.name}} is the pet of the day! 🥳</h4>
     </div>
-    <div :style="seePricing" class="info_pricing_button">Ver info</div>
   </div>
 </template>
 
@@ -23,6 +32,14 @@ export default{
   name: "CarInfoPricing",
   props: {
     data: Object
+  },
+  computed: {
+    isDog(){
+      return this.data.kind === 'dog'
+    },
+    isPetOfTheDay () {
+      return new Date().getDay()
+    }
   },
   data: () => ({
     listenerStatus: false,
@@ -55,12 +72,14 @@ export default{
 <style lang="scss">
 .info_pricing{
   padding: 1em;
-  border-top: 0;
+  // border-top: 0;
+  margin-top: 1rem;
 }
 
 .info_pricing_flex{
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
 }
 
 .info_pricing_discount {
@@ -68,7 +87,7 @@ export default{
 }
 
 .info_pricing_total {
-  margin-top: 1.5em; 
+  margin-top: 1.5em;
   font-size: 1.3em;
 }
 

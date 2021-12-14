@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span :style="titleFont" class="car_title">{{ title1 }}</span>
-    <b :style="titleFont" class="car_title">{{ title2 }}</b>
+    <b :style="titleFont" class="car_title">{{ title1 }}</b>
+    <span :style="titleFont" class="car_title">{{ `(${title2})` }}</span>
   </div>
 </template>
 
@@ -29,6 +29,8 @@ export default {
 <style lang="scss">
 .car_title {
   margin-right: 0.25em;
+  margin-bottom: 0.25em;
   font-style: italic;
+  text-align: center;
 }
 </style>
