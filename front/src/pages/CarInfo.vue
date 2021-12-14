@@ -1,10 +1,8 @@
 <template>
   <div id="info">
-    <router-link to="/">
-      <div class="info_title">
-        <span class="arrow">&#x3c;</span>Return to pets
-      </div>
-    </router-link>
+    <div @click="$router.back()" class="info_title">
+      <span class="arrow">&#x3c;</span>Return to pets
+    </div>
     <div class="info_content">
       <CarInfoCard style="width: 73%" :data="data" />
       <div class="car_info">
@@ -53,7 +51,7 @@ export default {
     data() {
       return this.$store.state.car;
     },
-  },
+  }
 };
 </script>
 
