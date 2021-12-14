@@ -22,23 +22,14 @@ import CarInfoDetail from "../components/CarInfo/CarInfoPricing.vue";
 import Pets from '../api/cars.js'
 import store from '../store'
 
-export default {
-  name: "CarInfo",
-  components: {
-    CarInfoCard,
-    CarInfoDescription,
-    CarInfoDetail
-  },
-  beforeRouteEnter: async (to, _, next) => {
+const fetchPetDetail = async (to, _, next) => {
     let id = to.query.id;
     if (id == null) next("/");
     else {
-      console.log({id})
       await Pets.getPetDetail(id)
-        .then((r) => {
-          console.log({r})
+        .then((pet) => {
           store.commit("changeId", id);
-          store.commit("changeCar", r.data);
+          store.commit("changeCar", pet.data);
           next();
         })
         .catch((err) => {
@@ -47,7 +38,17 @@ export default {
           else next("/404");
         });
     }
+  }
+
+export default {
+  name: "CarInfo",
+  components: {
+    CarInfoCard,
+    CarInfoDescription,
+    CarInfoDetail
   },
+  beforeRouteEnter: fetchPetDetail,
+  beforeRouteUpdate: fetchPetDetail,
   computed: {
     data() {
       return this.$store.state.car;

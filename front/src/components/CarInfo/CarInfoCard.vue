@@ -48,6 +48,7 @@ export default {
   align-items: baseline;
   justify-content: center;
   max-width: 100%;
+  overflow: hidden;
 }
 
 .info_card_content {

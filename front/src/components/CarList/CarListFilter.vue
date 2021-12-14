@@ -1,14 +1,14 @@
 <template>
   <div>
-    <select v-model="filter.kind" class="car_list_filter" @change="filterByPetKind">
+    <!-- <select v-model="filter.kind" class="car_list_filter" @change="filterByPetKind">
       <option value="" selected >All</option>
       <option value="dog">Dog</option>
       <option value="cat">Cat</option>
     </select>
     <input v-model="filter.name" class="car_list_filter" type="text" placeholder="Name" @input="!filter.name && filterByPetName()" @change="filterByPetName">
-    <input v-model="filter.weight" class="car_list_filter" type="number" placeholder="Weight" @input="!filter.weight && filterByPetWeight()" @change="filterByPetWeight">
-    <input v-model="filter.length" class="car_list_filter" type="number" placeholder="Length" @input="!filter.length && filterByPetLength()" @change="filterByPetLength">
-    <input v-model="filter.height" class="car_list_filter" type="number" placeholder="Height" @input="!filter.height && filterByPetHeight()" @change="filterByPetHeight">
+    <input v-model="filter.weight" class="car_list_filter" type="number" min="0" placeholder="Weight" @input="!filter.weight && filterByPetWeight()" @change="filterByPetWeight">
+    <input v-model="filter.length" class="car_list_filter" type="number" min="0" placeholder="Length" @input="!filter.length && filterByPetLength()" @change="filterByPetLength">
+    <input v-model="filter.height" class="car_list_filter" type="number" min="0" placeholder="Height" @input="!filter.height && filterByPetHeight()" @change="filterByPetHeight"> -->
 
     <select v-model="sort" @change="filterChanged" class="car_list_filter">
       <option value="0" selected>Sort</option>
@@ -35,45 +35,52 @@ export default {
     cache: []
   }),
   created () {
+    this.sort = this.$route.query.sort || '0'
+    if (this.sort !== '0') this.filterChanged()
     this.filter = { ...this.$route.query}
     if (!this.filter.kind) this.filter.kind = ''
   },
   methods: {
-     filterByPetKind () {
-      const kind = this.filter.kind
-      const newQuery = { ...this.$route.query }
-      if (!kind) delete newQuery.kind
-      else newQuery.kind = kind
-      this.$router.replace({ query: newQuery }).catch(error => error)
-    },
-     filterByPetName () {
-      const name = this.filter.name
-      const newQuery = { ...this.$route.query }
-      if (!name) delete newQuery.name
-      else newQuery.name = name
-      this.$router.replace({ query: newQuery }).catch(error => error)
-    },
-    filterByPetWeight () {
-      const weight = this.filter.weight
-      const newQuery = { ...this.$route.query }
-      if (!weight) delete newQuery.weight
-      else newQuery.weight = weight
-      this.$router.replace({ query: newQuery }).catch(error => error)
-    },
-      filterByPetLength () {
-      const length = this.filter.length
-      const newQuery = { ...this.$route.query }
-      if (!length) delete newQuery.length
-      else newQuery.length = length
-      this.$router.replace({ query: newQuery }).catch(error => error)
-    },
-      filterByPetHeight () {
-      const height = this.filter.height
-      const newQuery = { ...this.$route.query }
-      if (!height) delete newQuery.height
-      else newQuery.height = height
-      this.$router.replace({ query: newQuery }).catch(error => error)
-    },
+    //  filterByPetKind () {
+    //   const kind = this.filter.kind
+    //   const newQuery = { ...this.$route.query }
+    //   if (!kind) delete newQuery.kind
+    //   else newQuery.kind = kind
+    //   newQuery.page = 1
+    //   this.$router.replace({ query: newQuery }).catch(error => error)
+    // },
+    //  filterByPetName () {
+    //   const name = this.filter.name
+    //   const newQuery = { ...this.$route.query }
+    //   if (!name) delete newQuery.name
+    //   else newQuery.name = name
+    //   newQuery.page = 1
+    //   this.$router.replace({ query: newQuery }).catch(error => error)
+    // },
+    // filterByPetWeight () {
+    //   const weight = this.filter.weight
+    //   const newQuery = { ...this.$route.query }
+    //   if (!weight) delete newQuery.weight
+    //   else newQuery.weight = weight
+    //   newQuery.page = 1
+    //   this.$router.replace({ query: newQuery }).catch(error => error)
+    // },
+    //   filterByPetLength () {
+    //   const length = this.filter.length
+    //   const newQuery = { ...this.$route.query }
+    //   if (!length) delete newQuery.length
+    //   else newQuery.length = length
+    //   newQuery.page = 1
+    //   this.$router.replace({ query: newQuery }).catch(error => error)
+    // },
+    //   filterByPetHeight () {
+    //   const height = this.filter.height
+    //   const newQuery = { ...this.$route.query }
+    //   if (!height) delete newQuery.height
+    //   else newQuery.height = height
+    //   newQuery.page = 1
+    //   this.$router.replace({ query: newQuery }).catch(error => error)
+    // },
       filterChanged(){
         switch (this.sort){
           case "0":
@@ -113,7 +120,6 @@ export default {
     },
     applySort(sortFnc){
       let sorted = this.cache[this.sort] || this.sortData(sortFnc)
-      console.log(sorted)
       this.$store.commit("fetchPets", sorted);
     },
     sortData(sortFnc){
@@ -122,6 +128,7 @@ export default {
       ordered.sort(sortFnc)
       this.cache[this.sort] = ordered
       if (!this.cache[0]) this.cache[0] = data;
+      if (this.$route.query.sort !== this.sort)  this.$router.replace({ query: { ...this.$route.query, sort: this.sort}})
       return ordered
     },
     sortNumber: (property) => (a,b) => (a[property] > b[property]) ? 1 : -1,

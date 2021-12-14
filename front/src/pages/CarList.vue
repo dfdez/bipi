@@ -34,18 +34,18 @@ export default {
         next("/404");
       });
   },
-  beforeRouteUpdate: async (route, oldRoute, next) => {
-    const page = route.query.page || 1
-    const query = { ...route.query, page }
-    await Pets.getPets(query)
-      .then((pets) => {
-        store.commit("fetchPets", pets.data);
-        next();
-      })
-      .catch(() => {
-        next("/404");
-      });
-  },
+  // beforeRouteUpdate: async (route, oldRoute, next) => {
+  //   const page = route.query.page || 1
+  //   const query = { ...route.query, page }
+  //   await Pets.getPets(query)
+  //     .then((pets) => {
+  //       store.commit("fetchPets", pets.data);
+  //       next();
+  //     })
+  //     .catch(() => {
+  //       next("/404");
+  //     });
+  // },
   name: "CarList",
   components: {
     CarListCard,

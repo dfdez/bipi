@@ -9,6 +9,9 @@
 </template>
 
 <script>
+import Pets from '../../api/cars.js'
+import store from "../../store";
+
 export default {
   name: "CarListPager",
   data: () =>  ({
@@ -22,7 +25,14 @@ export default {
    async updatePetsPage () {
     const { query } = this.$route
     const newQuery = { ...query, page: this.page }
-    await this.$router.replace({ query: newQuery })
+    await Pets.getPets(newQuery).then((pets) => {
+      console.log(pets)
+      if (pets.data.length) {
+        store.commit("fetchPets", pets.data);
+        this.$router.replace({ query: newQuery})
+      }
+      else this.page--
+    })
    },
   async goToPrevPage () {
     if (this.page === 1) return
