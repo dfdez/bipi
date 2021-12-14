@@ -1,49 +1,52 @@
 <template>
   <div class="card_pager">
-    <span class="card_pager_back" @click="goToPrevPage"> {{ page > 1 ? '👈' : '🐶' }} </span>
+    <span class="card_pager_back" @click="goToPrevPage"> {{ isFirstPage ? '🐶' : '👈' }} </span>
     <div>
-      <span> {{ _page }} </span>
+      <span> {{ page }} </span>
     </div>
-    <span class="card_pager_next" @click="goToNextPage"> 👉 </span>
+    <span class="card_pager_next" @click="goToNextPage"> {{ isLastPage ? '🐱' : '👉' }} </span>
   </div>
 </template>
 
 <script>
-// import Pets from '../../api/cars.js'
-// import store from "../../store";
-
 export default {
   name: "CarListPager",
-  data: () =>  ({
-    page: 1,
-    endOfPets: false
-  }),
   computed: {
-    _page () {
+    page () {
       return this.$route.query.page || 1
+    },
+    firstPage () {
+      return this.$store.state.links.first
+    },
+    lastPage () {
+      return this.$store.state.links.last
+    },
+    nextPage () {
+      return this.$store.state.links.next
+    },
+    prevPage () {
+      return this.$store.state.links.prev
+    },
+    isFirstPage () {
+      return +this.firstPage === +this.page
+    },
+    isLastPage () {
+      return +this.lastPage === +this.page
     }
   },
-  created () {
-    this.page = this.$route.query.page || 1
-  },
   methods: {
-   async updatePetsPage () {
-    const newQuery = { ...this.$route.query, page: this.page }
-    this.$router.push({ query: newQuery})
-   },
-  async goToPrevPage () {
-    this.page = this._page
-    if (this.page === 1) return
-    this.page--
-    await this.updatePetsPage()
-    window.scrollTo(0,0)
-  },
-  async goToNextPage () {
-    this.page = this._page
-    this.page++
-    await this.updatePetsPage()
-    window.scrollTo(0,0)
-  },
+    async updatePetsPage (page) {
+      const newQuery = { ...this.$route.query, page }
+      this.$router.push({ query: newQuery})
+     },
+    async goToPrevPage () {
+      if (this.prevPage) await this.updatePetsPage(this.prevPage)
+      window.scrollTo(0,0)
+    },
+    async goToNextPage () {
+      if (this.nextPage) await this.updatePetsPage(this.nextPage)
+      window.scrollTo(0,0)
+    },
   }
 };
 </script>

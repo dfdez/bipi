@@ -27,7 +27,7 @@ export default {
     const query = { ...route.query, page }
     await Pets.getPets(query)
       .then((pets) => {
-        store.commit("updatePets", { pets: pets.data, sort: route.query.sort });
+        store.commit("updatePets", { pets: pets.data, sort: route.query.sort, headers: pets.headers });
         next();
       })
       .catch(() => {
@@ -37,19 +37,19 @@ export default {
   beforeRouteUpdate: async (route, oldRoute, next) => {
     if (route.query.sort && (route.query.sort !== oldRoute.query.sort)) next()
     else {
+      const { links } = store.state
       const page = route.query.page || 1
-      const query = { ...route.query, page }
-      await Pets.getPets(query)
-        .then((pets) => {
-          if (!pets.data.length && route.query.page !== 1) next(false)
-          else {
-            store.commit("updatePets", { pets: pets.data, sort: route.query.sort });
+      if (page <= links.last) {
+        const query = { ...route.query, page }
+        await Pets.getPets(query)
+          .then((pets) => {
+            store.commit("updatePets", { pets: pets.data, sort: route.query.sort, headers: pets.headers });
             next();
-          }
-        })
-        .catch(() => {
-          next("/404");
-        });
+          })
+          .catch(() => {
+            next("/404");
+          });
+        }
       }
   },
   name: "CarList",
@@ -58,15 +58,9 @@ export default {
     CarListFilter,
     CarListPager
   },
-  data: () => ({
-    group: null
-  }),
   computed: {
     data(){
       return this.$store.state.cars
-    },
-    sort () {
-      return this.$route.query.sort
     }
   }
 }

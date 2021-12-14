@@ -1,7 +1,7 @@
 <template>
   <div class="flex_row" style="align-items: center;">
-    <h4>Sort:</h4>
     <select :value="$route.query.sort" @change="sortChanged" class="car_list_sort">
+      <option value="">Sort</option>
       <option value="weight">Weight ⇣</option>
       <option value="reverseWeight">Weight ⇡</option>
       <option value="_length">Length ⇣</option>
@@ -21,7 +21,7 @@ export default {
   name: "CarListFilter",
   methods: {
     sortChanged(event){
-      const sortValue = event.target.value || this.$route.query.sort
+      const sortValue = event.target.value
       if (this.$route.query.sort !== sortValue) this.$router.push({ query: { ...this.$route.query, sort: sortValue}})
       this.$store.commit("updatePets", { sort: sortValue });
     }

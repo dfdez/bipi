@@ -6,9 +6,9 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    last_id: null,
     cars: [],
-    car: {}
+    links: {},
+    car: {},
   },
   mutations: {
     changeId(state, id) {
@@ -17,9 +17,10 @@ const store = new Vuex.Store({
     changeCar(state, car) {
       state.car = car;
     },
-    updatePets(state, { pets, sort }) {
+    updatePets(state, { pets, sort, headers }) {
       const petsArray = pets || state.cars
       state.cars = sort ? Utils.sortPets({ pets: petsArray, sort }) : petsArray;
+      if (headers) state.links = Utils.parseHeaders(headers)
     },
   },
 });
