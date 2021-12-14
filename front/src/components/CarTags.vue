@@ -35,7 +35,7 @@ export default {
   color: white;
   padding: 0 .8em;
   border-radius: 0.4em;
-  height: 1.5em;
+  min-height: 1.5em;
   align-items: center;
   display: flex;
   margin-right: .5em;

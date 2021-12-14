@@ -50,7 +50,7 @@ export default {
         name: 'PET OF THE DAY',
         to: {
           path: '/info',
-          query: { id: new Date().getDay()}
+          query: { id: new Date().getDate()}
         }
       }]);
     }

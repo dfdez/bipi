@@ -22,7 +22,11 @@
         <span>Lives</span>
         <span>{{data.number_of_lives}} lives 😼</span>
       </div>
-      <h4 v-if="data.id === isPetOfTheDay">Today {{data.name}} is the pet of the day! 🥳</h4>
+      <div class="info_pricing_flex">
+        <span>Health</span>
+        <span>{{petHealth}} ❤‍🩹</span>
+      </div>
+      <h4 v-if="isPetOfTheDay">Today {{data.name}} is the pet of the day! 🥳</h4>
     </div>
   </div>
 </template>
@@ -38,7 +42,16 @@ export default{
       return this.data.kind === 'dog'
     },
     isPetOfTheDay () {
-      return new Date().getDay()
+      return this.data.id === new Date().getDate()
+    },
+    petHealth () {
+      const { weight, height, length, kind, lives } = this.data
+      const health = Math.round(weight / (height * length))
+      if (kind === 'cat' && lives === 1) return 'Unhealthy'
+      if (health < 2 || health > 5) return 'Unhealthy'
+      if (health > 3 && health <= 5) return 'Healthy'
+      if (health >= 2 && health <= 3) return 'Very healthy'
+      return 'Unhealthy'
     }
   },
   data: () => ({
@@ -61,7 +74,7 @@ export default{
     infoClicked(){
       if (document.body.clientWidth < 963){
         this.seePricing.opacity = 0;
-        this.pricing.height = '7em !important'
+        this.pricing.height = this.isPetOfTheDay ? '18rem !important' : '14rem !important'
         document.body.addEventListener("click", this.bodyClick);
       }
     }
